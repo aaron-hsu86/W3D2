@@ -116,6 +116,7 @@ function whileThreeNum (array, target){
                 y++;
                 z=y+1;
             }
+
             if (array[x]+array[y]+array[z] == target){
                 result.push([array[x], array[y], array[z]]);
                 resultCheck = true;
@@ -131,6 +132,30 @@ function whileThreeNum (array, target){
     }
 }
 
+function joshThreeNumSum(array, targetSum){
+    array.sort((a,b) => a-b);
+    const triplets = [];
+    for (let i = 0; i < array.length-2; i++){
+        let left = i+1;
+        let right = array.length-1;
+        while (left < right){
+            const currentSum = array[i] + array[left] + array[right];
+            if (currentSum === targetSum){
+                triplets.push([array[i], array[left], array[right]]);
+                left++;
+                right--;
+            }
+            else if (currentSum < targetSum){
+                left++;
+            }
+            else if (currentSum > targetSum){
+                right--;
+            }
+        }
+    }
+    return triplets;
+}
+
 // sample Input 
 // array= [12,3,1,2,-6,5,-8,6]
 //                [ 0   1  2  3  4  5  6  7]  
@@ -143,3 +168,5 @@ console.log("Three for loops result:")
 console.log(threeNumSum([12,3,1,2,-6,5,-8,6], 0));
 console.log("Solved with While loop:")
 console.log(whileThreeNum([12,3,1,2,-6,5,-8,6], 0))
+console.log("Josh's solution:");
+console.log(joshThreeNumSum([12,3,1,2,-6,5,-8,6], 0))
